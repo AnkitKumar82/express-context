@@ -4,7 +4,9 @@ import { AsyncLocalStorage } from 'async_hooks'
 const asyncLocalStorage: AsyncLocalStorage<any> = new AsyncLocalStorage()
 
 export async function contextMiddleware (request: Request, response: Response, next: NextFunction): Promise<any> {
-  asyncLocalStorage.run(new Map(), () => next)
+  asyncLocalStorage.run(new Map(), () => {
+    next()
+  })
 }
 
 export function getContext (key: String) {
